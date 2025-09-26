@@ -1,7 +1,7 @@
 // api/productApi.js
-import axios from 'axios';
+import axios from "axios";
 
-const BASE_URL = 'http://localhost:3000/api/v1/products';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL + "/api/v1/products";
 
 const productApi = {
   getProducts: async () => {
@@ -29,7 +29,7 @@ const productApi = {
     try {
       const response = await axios.post(url, productData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
         withCredentials: true,
       });
@@ -44,7 +44,7 @@ const productApi = {
     try {
       const response = await axios.put(url, updatedData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
         withCredentials: true,
       });
@@ -62,7 +62,7 @@ const productApi = {
         { inStock: newStatus },
         {
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           withCredentials: true,
         }

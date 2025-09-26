@@ -1,7 +1,7 @@
 // api/userApi.js
-import axios from 'axios';
+import axios from "axios";
 
-const BASE_URL = 'http://localhost:3000/api/v1/users';
+const BASE_URL = import.meta.env.VITE_API_BASE_URL + "/api/v1/users";
 
 const userApi = {
   getUserData: async (userId) => {
@@ -19,7 +19,7 @@ const userApi = {
     try {
       const response = await axios.put(url, updatedData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         withCredentials: true,
       });
@@ -44,7 +44,7 @@ const userApi = {
     try {
       const response = await axios.post(url, messageData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         withCredentials: true,
       });
@@ -69,13 +69,16 @@ const userApi = {
     try {
       const response = await axios.post(url, queryData, {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         withCredentials: true,
       });
       return response.data;
     } catch (error) {
-      console.error('Error submitting product query:', error.response || error.message);
+      console.error(
+        "Error submitting product query:",
+        error.response || error.message
+      );
       throw new Error(`Failed to submit product query: ${error.message}`);
     }
   },
