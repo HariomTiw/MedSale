@@ -1,47 +1,75 @@
-import { CheckCircleIcon } from '@heroicons/react/24/solid';
-
-function AboutProduct() {
+// import React, { useState } from 'react';
+import { Heart, CheckCircle } from "lucide-react";
+const AboutProduct = () => {
   return (
-    <div>
-      <section className="p-8 bg-gray-100 dark:bg-gray-800 shadow-md">
-        <div className="container mx-auto p-4">
-          <h2 className="text-3xl font-bold mb-4 text-teal-600 dark:text-teal-400">Explore Our Innovative Pharmaceutical Solution</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="mb-4">
-              <img
-                src="https://etimg.etb2bimg.com/photo/100619299.cms"
-                alt="Product Image"
-                className="w-full h-auto rounded-lg transition transform hover:scale-105 duration-300 ease-in-out"
-              />
+    <section className="relative w-full py-16 md:py-24 overflow-hidden bg-gradient-to-br from-slate-50 to-blue-50">
+      <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-indigo-500/10"></div>
+
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center rounded-full bg-gradient-to-r from-teal-500 to-indigo-500 px-4 py-2 text-sm font-medium text-white shadow-lg mb-6">
+            <Heart className="w-4 h-4 mr-2" />
+            About Our Company
+          </div>
+          <h1 className="text-3xl font-bold tracking-tight sm:text-5xl text-slate-900 mb-4">
+            Your Trusted Healthcare Partner
+          </h1>
+          <p className="mx-auto max-w-[700px] text-slate-600 md:text-lg leading-relaxed">
+            Since 1995, Vijaya Pharmaceuticals has been committed to delivering
+            premium quality medicines and healthcare solutions to communities
+            across India.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="relative">
+            <img
+              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+              alt="Pharmaceutical Laboratory"
+              className="rounded-3xl shadow-2xl w-full h-96 object-cover"
+            />
+            <div className="absolute -bottom-6 -right-6 bg-white rounded-2xl p-6 shadow-xl">
+              <div className="text-center">
+                <div className="text-2xl font-bold text-teal-600">25+</div>
+                <div className="text-sm text-slate-600">
+                  Years of Excellence
+                </div>
+              </div>
             </div>
-            <div>
-              <p className="text-lg text-gray-800 dark:text-gray-300 leading-relaxed">
-                Embark on a journey with our groundbreaking pharmaceutical solution that combines cutting-edge technology with a commitment to improving lives. Our product is meticulously designed to address the unique needs of patients, ensuring optimal results and patient well-being.
-              </p>
-              <ul className="list-disc list-inside mt-4 text-gray-700 dark:text-gray-400">
-                <li className="flex items-center mb-2 transition transform hover:translate-x-2 duration-300 ease-in-out">
-                  <CheckCircleIcon className="w-5 h-5 mr-2 text-green-500" />
-                  Incorporates high-quality, clinically-tested materials
-                </li>
-                <li className="flex items-center mb-2 transition transform hover:translate-x-2 duration-300 ease-in-out">
-                  <CheckCircleIcon className="w-5 h-5 mr-2 text-green-500" />
-                  Utilizes advanced and innovative medical technology
-                </li>
-                <li className="flex items-center mb-2 transition transform hover:translate-x-2 duration-300 ease-in-out">
-                  <CheckCircleIcon className="w-5 h-5 mr-2 text-green-500" />
-                  Demonstrates exceptional performance in diverse healthcare scenarios
-                </li>
-                <li className="flex items-center mb-2 transition transform hover:translate-x-2 duration-300 ease-in-out">
-                  <CheckCircleIcon className="w-5 h-5 mr-2 text-green-500" />
-                  Boasts a unique and patient-centric design for maximum impact
-                </li>
-              </ul>
+          </div>
+
+          <div className="space-y-6">
+            <h2 className="text-3xl font-bold text-slate-900">
+              Leading Innovation in Healthcare
+            </h2>
+            <p className="text-slate-600 leading-relaxed">
+              We specialize in providing high-quality pharmaceutical products
+              that meet international standards. Our commitment to excellence
+              has made us a trusted name in the healthcare industry.
+            </p>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-white p-4 rounded-2xl shadow-md">
+                <div className="text-xl font-bold text-indigo-600">10,000+</div>
+                <div className="text-sm text-slate-600">Happy Customers</div>
+              </div>
+              <div className="bg-white p-4 rounded-2xl shadow-md">
+                <div className="text-xl font-bold text-violet-600">500+</div>
+                <div className="text-sm text-slate-600">Quality Products</div>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <CheckCircle className="w-5 h-5 text-emerald-600" />
+              <span className="text-slate-600">
+                FDA Approved & ISO Certified
+              </span>
             </div>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
-}
+};
 
 export default AboutProduct;

@@ -9,7 +9,7 @@ import {
   Eye,
   EyeOff,
 } from "lucide-react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import useRegister from "../hooks/useRegister";
 import toast from "react-hot-toast";
@@ -82,6 +82,7 @@ const Register = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center p-4">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-indigo-500/10"></div>
+
       <div className="absolute inset-0 opacity-30"></div>
 
       <div className="relative z-10 w-full max-w-lg">

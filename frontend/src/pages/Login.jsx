@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 import { Eye, EyeOff, Mail, Lock, Heart, Shield } from "lucide-react";
 import useLogin from "../hooks/useLogin";
 
@@ -36,6 +36,7 @@ const SignIn = () => {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center p-4">
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-gradient-to-r from-teal-500/10 to-indigo-500/10"></div>
+
       <div className="absolute inset-0 opacity-30"></div>
 
       <div className="relative z-10 w-full max-w-md">
@@ -143,7 +144,7 @@ const SignIn = () => {
                 </label>
               </div>
               <Link
-                  to="/forgot-password"
+                to="/forgot-password"
                 className="text-sm font-medium text-teal-600 hover:text-teal-700 transition-colors duration-200"
               >
                 Forgot password?

@@ -1,95 +1,56 @@
-import React from "react";
+import { Heart, Shield, Award, Users } from 'lucide-react';
 
-function BrandingSection() {
+// Branding Section
+const BrandingSection = () => {
   return (
-    <div className="bg-gray-100 dark:bg-gray-800">
-      {/* Branding Section */}
-      <section className="container mx-auto p-8 rounded-md shadow-md">
-        <h2 className="text-4xl font-bold mb-6 text-gray-800 dark:text-white">
-          About MedSale
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {/* Mission */}
-          <div className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-700 dark:border-gray-600 transition-transform transform hover:scale-105">
-            <h3 className="text-2xl font-semibold mb-3 text-blue-500 dark:text-white">
-              Our Mission
-            </h3>
-            <p className="text-gray-700 dark:text-gray-400">
-              At MedSale, we are dedicated to providing high-quality
-              pharmaceuticals to improve and save lives. Our mission is to make
-              healthcare accessible and affordable for everyone.
-            </p>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 mt-4 text-blue-500 dark:text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 13l4 4L19 7"
-              ></path>
-            </svg>
+    <section className="w-full py-16 md:py-24 bg-white">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold tracking-tight md:text-4xl text-slate-900 mb-4">
+            Our Core Values
+          </h2>
+          <p className="mx-auto max-w-[600px] text-slate-600 md:text-lg">
+            The principles that guide everything we do at Vijaya Pharmaceuticals.
+          </p>
+        </div>
+
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="group text-center p-6 rounded-3xl bg-gradient-to-br from-teal-50 to-teal-100 hover:shadow-lg transition-all duration-300">
+            <div className="w-16 h-16 bg-gradient-to-r from-teal-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <Heart className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-xl font-semibold text-slate-900 mb-3">Care</h3>
+            <p className="text-slate-600">Putting patient health and wellbeing at the center of everything we do.</p>
           </div>
 
-          {/* Values */}
-          <div className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-700 dark:border-gray-600 transition-transform transform hover:scale-105">
-            <h3 className="text-2xl font-semibold mb-3 text-blue-500 dark:text-white">
-              Values
-            </h3>
-            <p className="text-gray-700 dark:text-gray-400">
-              Our values revolve around integrity, innovation, and a commitment
-              to excellence. We strive to set industry standards in quality and
-              ethical practices.
-            </p>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 mt-4 text-blue-500 dark:text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 13l4 4L19 7"
-              ></path>
-            </svg>
+          <div className="group text-center p-6 rounded-3xl bg-gradient-to-br from-indigo-50 to-indigo-100 hover:shadow-lg transition-all duration-300">
+            <div className="w-16 h-16 bg-gradient-to-r from-indigo-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <Shield className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-xl font-semibold text-slate-900 mb-3">Quality</h3>
+            <p className="text-slate-600">Maintaining the highest standards in every product and service we provide.</p>
           </div>
 
-          {/* Vision */}
-          <div className="bg-white p-6 rounded-lg shadow-md dark:bg-gray-700 dark:border-gray-600 transition-transform transform hover:scale-105">
-            <h3 className="text-2xl font-semibold mb-3 text-blue-500 dark:text-white">
-              Vision
-            </h3>
-            <p className="text-gray-700 dark:text-gray-400">
-              Our vision is to be a global leader in pharmaceuticals, pioneering
-              breakthroughs in medical science and positively impacting the
-              well-being of communities worldwide.
-            </p>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 mt-4 text-blue-500 dark:text-white"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M5 13l4 4L19 7"
-              ></path>
-            </svg>
+          <div className="group text-center p-6 rounded-3xl bg-gradient-to-br from-violet-50 to-violet-100 hover:shadow-lg transition-all duration-300">
+            <div className="w-16 h-16 bg-gradient-to-r from-violet-500 to-violet-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <Award className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-xl font-semibold text-slate-900 mb-3">Excellence</h3>
+            <p className="text-slate-600">Continuously improving and innovating to exceed expectations.</p>
+          </div>
+
+          <div className="group text-center p-6 rounded-3xl bg-gradient-to-br from-emerald-50 to-emerald-100 hover:shadow-lg transition-all duration-300">
+            <div className="w-16 h-16 bg-gradient-to-r from-emerald-500 to-emerald-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <Users className="w-8 h-8 text-white" />
+            </div>
+            <h3 className="text-xl font-semibold text-slate-900 mb-3">Trust</h3>
+            <p className="text-slate-600">Building lasting relationships through transparency and reliability.</p>
           </div>
         </div>
-      </section>
-    </div>
+      </div>
+    </section>
   );
-}
+};
+
 
 export default BrandingSection;

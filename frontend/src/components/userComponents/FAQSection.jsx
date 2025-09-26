@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import faqData from "./faqData/faqData";
 
 const FAQSection = () => {
@@ -219,7 +219,7 @@ const FAQSection = () => {
   };
 
   return (
-    <div className="w-full bg-white border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 p-4">
+    <div className="w-full  bg-slate-50 border border-gray-200 shadow dark:bg-gray-800 dark:border-gray-700 p-4">
       <div className="sm:hidden">
         <label htmlFor="tabs" className="sr-only">
           Select tab

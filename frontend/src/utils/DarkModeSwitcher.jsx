@@ -1,25 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import useColorMode from '../hooks/useColorMode';
+// import React from "react";
+import { useTheme } from "../context/ThemeContext";
 
 const DarkModeSwitcher = () => {
-  const [colorMode, setColorMode] = useColorMode();
-  const [isDarkmode, setIsDarkmode] = useState(colorMode === 'dark');
-
-  useEffect(() => {
-    setIsDarkmode(colorMode === 'dark');
-  }, [colorMode]);
-
-  const toggleTheme = () => {
-    setIsDarkmode(!isDarkmode);
-    setColorMode((prevColorMode) => (prevColorMode === 'light' ? 'dark' : 'light'));
-  };
+  const { theme, toggleTheme } = useTheme();
 
   const darkIcon = (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      stroke="currentColor">
+      stroke="currentColor"
+    >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -34,7 +25,8 @@ const DarkModeSwitcher = () => {
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"
-      stroke="currentColor">
+      stroke="currentColor"
+    >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -46,12 +38,17 @@ const DarkModeSwitcher = () => {
 
   return (
     <button
-      className="w-12 h-6 rounded-full bg-white flex items-center transition duration-300 focus:outline-none shadow"
-      onClick={toggleTheme}>
+      className="p-2 rounded-xl text-slate-700 hover:bg-slate-100 transition-all duration-300 group"
+      onClick={toggleTheme}
+      aria-label="Toggle dark mode"
+    >
       <div
         id="switch-toggle"
-        className={`w-8 h-8 relative rounded-full transition duration-500 transform ${isDarkmode ? 'bg-gray-700 translate-x-full' : 'bg-yellow-500 -translate-x-2'} p-1 text-white`}>
-        {isDarkmode ? darkIcon : lightIcon}
+        className={`w-5 h-5 transition duration-500 transform group-hover:scale-110 ${
+          theme === "dark" ? "text-indigo-500" : "text-teal-500"
+        }`}
+      >
+        {theme === "dark" ? darkIcon : lightIcon}
       </div>
     </button>
   );
