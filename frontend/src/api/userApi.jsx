@@ -1,7 +1,7 @@
 // api/userApi.js
 import axios from "axios";
 
-const BASE_URL = "/api/v1/users";
+const BASE_URL = "https://med-sale-backend.vercel.app/api/v1/users";
 
 const userApi = {
   getUserData: async (userId) => {

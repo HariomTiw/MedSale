@@ -1,7 +1,7 @@
 // api/authApi.js
 import axios from "axios";
 
-const API_BASE_URL = "/api/v1/auth";
+const API_BASE_URL = "https://med-sale-backend.vercel.app/api/v1/auth";
 
 const authApi = {
   registerUser: async (userData) => {

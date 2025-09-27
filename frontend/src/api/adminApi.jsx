@@ -1,7 +1,7 @@
 // api/adminApi.js
 import axios from "axios";
 
-const BASE_URL =  "/api/v1/admin";
+const BASE_URL = "https://med-sale-backend.vercel.app/api/v1/admin";
 
 const adminApi = {
   getHomePageData: async () => {
