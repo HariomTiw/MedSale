@@ -9,7 +9,9 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 // Define cookie options for token storage
 const cookieOptions = {
   httpOnly: true,
-  secure: false,
+  secure: true,
+  sameSite: 'none',
+  domain: '.vercel.app'
 };
 
 // Function to generate access and refresh tokens for a user
