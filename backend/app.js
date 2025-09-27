@@ -5,6 +5,7 @@ import rateLimit from "express-rate-limit";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import db from "./config/database.js";
+import errorHandler from './middlewares/errorHandler.js';
 import authRoutes from "./routes/authRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
@@ -15,24 +16,56 @@ dotenv.config();
 
 const app = express();
 
+// Security middleware
+const isProduction = process.env.NODE_ENV === 'production';
+
 // Rate limiting middleware
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 200, // limit each IP to 100 requests per windowMs
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 15 * 60 * 1000,
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS) || 200,
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
 });
+
+// Apply rate limiting to all routes
 app.use(limiter);
 
-// Helmet middleware for security headers
-// app.use(helmet());
+// Security headers with Helmet
+app.use(helmet({
+  contentSecurityPolicy: isProduction,
+  crossOriginEmbedderPolicy: isProduction,
+  crossOriginOpenerPolicy: isProduction,
+  crossOriginResourcePolicy: isProduction,
+}));
 
-// Other middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Parse cookies
 app.use(cookieParser(process.env.COOKIE_SECRET));
+
+// Parse JSON bodies
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// CORS configuration
+const allowedOrigins = process.env.ALLOWED_ORIGINS?.split(',') || [
+  'http://localhost:5173',
+  'https://med-sale-frontend.vercel.app'
+];
+
 app.use(
   cors({
-    origin: ["http://localhost:5173", "https://med-sale-frontend.vercel.app"],
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['set-cookie'],
+    maxAge: 86400, // 24 hours
   })
 );
 
@@ -47,14 +80,14 @@ app.use("/api/v1/users", usersRoutes);
 app.use("/api/v1/products", productRoutes);
 // app.use('/api/v1/payment', paymentRoutes);
 
-// Database Connection
-db.on("open", () => {
-  console.log("Database connected");
-});
+// Initialize database connection
+await db();
+
+// Import error handler
+import errorHandler from './middlewares/errorHandler.js';
 
 // Global error handler
-app.use((err, req, res, next) => {
-  console.error(err.stack);
+app.use(errorHandler);
   res.status(500).send("Something went wrong!");
 });
 

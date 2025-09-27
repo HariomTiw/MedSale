@@ -9,15 +9,19 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 // Define cookie options for token storage
 const cookieOptions = {
   httpOnly: true,
-  secure: true,
-  sameSite: "none",
-  domain: ".vercel.app",
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  path: "/",
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
 };
 
 // Function to generate access and refresh tokens for a user
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
     const user = await User.findById(userId);
+    if (!user) {
+      throw new ApiError(404, "User not found");
+    }
 
     const accessToken = user.generateAccessToken();
     const refreshToken = user.generateRefreshToken();
@@ -26,7 +30,7 @@ const generateAccessAndRefreshTokens = async (userId) => {
 
     await user.save({ validateBeforeSave: false });
 
-    return { accessToken, refreshToken };
+    return { accessToken, refreshToken, user };
   } catch (error) {
     console.error("Error generating tokens:", error);
     throw new ApiError(500, "Error generating tokens");
@@ -249,14 +253,12 @@ class AuthController {
               )
             );
         } else {
-          return res
-            .status(200)
-            .json(
-              new ApiResponse(200, {
-                message: "Access token is still valid",
-                user: req.user,
-              })
-            );
+          return res.status(200).json(
+            new ApiResponse(200, {
+              message: "Access token is still valid",
+              user: req.user,
+            })
+          );
         }
       } catch (error) {
         throw new ApiError(401, error?.message || "Invalid refresh token");
