@@ -23,7 +23,7 @@ const limiter = rateLimit({
 
 const allowedOrigins = [
   "http://localhost:5173",              // local dev
-  "https://med-sale-frontend-pbw01wt1e-17hariom09-gmailcoms-projects.vercel.app" // deployed frontend
+  "https://med-sale-frontend.vercel.app" // deployed frontend
 ];
 
 app.use(limiter);
@@ -36,10 +36,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(cors({
-  origin: function (origin, callback) {
+  origin: (origin, callback) => {
+    // allow requests with no origin (like mobile apps, Postman)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.log("CORS blocked origin:", origin); // log for debugging
       callback(new Error("Not allowed by CORS"));
     }
   },

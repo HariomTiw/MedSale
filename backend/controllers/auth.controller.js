@@ -98,7 +98,7 @@ class AuthController {
         throw new ApiError(500, "Error creating the user");
       }
 
-      const { accessToken, refreshToken } = generateAccessAndRefreshTokens(user._id);
+      const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
 
       await user.save({ validateBeforeSave: false });
 
@@ -150,10 +150,10 @@ class AuthController {
         { new: true }
       );
       return res
-        .clearCookie("accessToken")
-        .clearCookie("refreshToken")
-        .status(200)
-        .json(new ApiResponse(200, {}, "User logged out"));
+            .clearCookie("accessToken", cookieOptions)
+            .clearCookie("refreshToken", cookieOptions)
+            .status(200)
+            .json(new ApiResponse(200, {}, "User logged out"));
     } catch (error) {
       console.error('Logout error:', error);
       return res
