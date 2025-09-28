@@ -9,8 +9,10 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 // Define cookie options for token storage
 const cookieOptions = {
   httpOnly: true,
-  secure: false,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "none",
 };
+
 
 // Function to generate access and refresh tokens for a user
 const generateAccessAndRefreshTokens = async (userId) => {

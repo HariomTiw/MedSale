@@ -20,6 +20,12 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 200, // limit each IP to 100 requests per windowMs
 });
+
+const allowedOrigins = [
+  "http://localhost:5173",              // local dev
+  "https://med-sale-frontend.vercel.app" // deployed frontend
+];
+
 app.use(limiter);
 
 // Helmet middleware for security headers
@@ -29,7 +35,16 @@ app.use(limiter);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(cors({ origin: 'http://localhost:5173', credentials: true }));
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  credentials: true,
+}));
 
 // Set up static file serving
 app.use(express.static(new URL('./public', import.meta.url).pathname));
