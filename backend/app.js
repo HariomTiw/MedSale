@@ -23,7 +23,7 @@ const limiter = rateLimit({
 
 const allowedOrigins = [
   "http://localhost:5173",              // local dev
-  "https://med-sale-frontend.vercel.app" // deployed frontend
+  "https://med-sale-frontend-pbw01wt1e-17hariom09-gmailcoms-projects.vercel.app" // deployed frontend
 ];
 
 app.use(limiter);
