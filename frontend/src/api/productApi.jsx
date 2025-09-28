@@ -1,7 +1,7 @@
 // api/productApi.js
 import axios from "axios";
 
-const BASE_URL = "https://med-sale-backend.vercel.app/api/v1/products";
+const BASE_URL = "/api/v1/products";
 
 const productApi = {
   getProducts: async () => {

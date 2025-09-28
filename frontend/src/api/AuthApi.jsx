@@ -1,7 +1,7 @@
 // api/authApi.js
-import axiosInstance from "./axiosConfig";
+import axios from "axios";
 
-const API_PATH = "/api/v1/auth";
+const API_BASE_URL = "/api/v1/auth";
 
 const authApi = {
   registerUser: async (userData) => {

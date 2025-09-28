@@ -4,10 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js",
-    "start": "node app.js",
-    "lint": "eslint .",
-    "test": "jest"
+    "dev": "node --watch app.js"
   },
   "type": "module",
   "keywords": [],
