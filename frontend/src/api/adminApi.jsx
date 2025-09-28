@@ -1,7 +1,7 @@
 // api/adminApi.js
-import axios from "axios";
+import axios from 'axios';
 
-const BASE_URL =  "/api/v1/admin";
+const BASE_URL = 'http://localhost:3000/api/v1/admin';
 
 const adminApi = {
   getHomePageData: async () => {
@@ -10,7 +10,7 @@ const adminApi = {
       const response = await axios(url, {
         withCredentials: true,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
       return response.data;
@@ -25,7 +25,7 @@ const adminApi = {
       const response = await axios(url, {
         withCredentials: true,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
       return response.data;
@@ -40,7 +40,7 @@ const adminApi = {
       const response = await axios(url, {
         withCredentials: true,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
       return response.data;
@@ -57,7 +57,7 @@ const adminApi = {
         { viewed: newStatus },
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           withCredentials: true,
         }
@@ -74,7 +74,7 @@ const adminApi = {
       const response = await axios.delete(url, {
         withCredentials: true,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
       return response.data;
@@ -89,7 +89,7 @@ const adminApi = {
       const response = await axios(url, {
         withCredentials: true,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
       return response.data;
@@ -106,7 +106,7 @@ const adminApi = {
         { viewed: newStatus },
         {
           headers: {
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
           },
           withCredentials: true,
         }
@@ -125,7 +125,7 @@ const adminApi = {
       const response = await axios.delete(url, {
         withCredentials: true,
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
       });
       return response.data;
