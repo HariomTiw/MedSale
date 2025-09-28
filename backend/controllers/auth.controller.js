@@ -9,9 +9,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 // Define cookie options for token storage
 const cookieOptions = {
   httpOnly: true,
-  secure: true,
-  sameSite: "none",
-  domain: ".vercel.app",
+  secure: false,
 };
 
 // Function to generate access and refresh tokens for a user
@@ -28,10 +26,11 @@ const generateAccessAndRefreshTokens = async (userId) => {
 
     return { accessToken, refreshToken };
   } catch (error) {
-    console.error("Error generating tokens:", error);
+    console.error('Error generating tokens:', error);
     throw new ApiError(500, "Error generating tokens");
   }
 };
+
 
 // Function to handle image upload using Cloudinary
 const handleImageUpload = async (file) => {
@@ -62,19 +61,9 @@ class AuthController {
       if (!req.user) {
         throw new ApiError(401, "User not authenticated");
       }
-      return res.json(
-        new ApiResponse(200, { user: req.user }, "Authentication successful")
-      );
+      return res.json(new ApiResponse(200, { user: req.user }, "Authentication successful"));
     } catch (error) {
-      return res
-        .status(error.status || 500)
-        .json(
-          new ApiResponse(
-            error.status || 500,
-            null,
-            error.message || "Authentication failed"
-          )
-        );
+      return res.status(error.status || 500).json(new ApiResponse(error.status || 500, null, error.message || "Authentication failed"));
     }
   });
 
@@ -107,33 +96,17 @@ class AuthController {
         throw new ApiError(500, "Error creating the user");
       }
 
-      const { accessToken, refreshToken } = generateAccessAndRefreshTokens(
-        user._id
-      );
+      const { accessToken, refreshToken } = generateAccessAndRefreshTokens(user._id);
 
       await user.save({ validateBeforeSave: false });
 
       return res
         .cookie("accessToken", accessToken, cookieOptions)
         .cookie("refreshToken", refreshToken, cookieOptions)
-        .json(
-          new ApiResponse(
-            200,
-            { user, accessToken, refreshToken },
-            "User registered successfully"
-          )
-        );
+        .json(new ApiResponse(200, { user, accessToken, refreshToken }, "User registered successfully"));
     } catch (error) {
       console.error("Registration error:", error);
-      return res
-        .status(error.status || 500)
-        .json(
-          new ApiResponse(
-            error.status || 500,
-            null,
-            error.message || "Registration failed"
-          )
-        );
+      return res.status(error.status || 500).json(new ApiResponse(error.status || 500, null, error.message || "Registration failed"));
     }
   });
 
@@ -152,34 +125,18 @@ class AuthController {
         throw new ApiError(401, "Invalid user credentials");
       }
 
-      const { accessToken, refreshToken } =
-        await generateAccessAndRefreshTokens(user._id);
+      const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
 
-      const loggedInUser = await User.findById(user._id).select(
-        "-password -refreshToken"
-      );
+      const loggedInUser = await User.findById(user._id).select("-password -refreshToken");
 
       res
         .cookie("accessToken", accessToken, cookieOptions)
         .cookie("refreshToken", refreshToken, cookieOptions)
-        .json(
-          new ApiResponse(
-            200,
-            { user: loggedInUser, accessToken, refreshToken },
-            "User logged in successfully"
-          )
-        );
+        .json(new ApiResponse(200, { user: loggedInUser, accessToken, refreshToken }, "User logged in successfully"));
     } catch (error) {
       console.error("Login error:", error);
-      return res
-        .status(error.status || 500)
-        .json(
-          new ApiResponse(
-            error.status || 500,
-            null,
-            error.message || "Login failed"
-          )
-        );
+      return res.status(error.status || 500).
+        json(new ApiResponse(error.status || 500, null, error.message || "Login failed"));
     }
   });
 
@@ -196,7 +153,7 @@ class AuthController {
         .status(200)
         .json(new ApiResponse(200, {}, "User logged out"));
     } catch (error) {
-      console.error("Logout error:", error);
+      console.error('Logout error:', error);
       return res
         .status(500)
         .json(new ApiResponse(500, null, "An error occurred during logout"));
@@ -226,13 +183,10 @@ class AuthController {
           throw new ApiError(401, "Invalid refresh token");
         }
 
-        const isAccessTokenExpired = user.isAccessTokenExpired(
-          req.cookies.accessToken
-        );
+        const isAccessTokenExpired = user.isAccessTokenExpired(req.cookies.accessToken);
 
         if (isAccessTokenExpired) {
-          const { accessToken, refreshToken } =
-            await generateAccessAndRefreshTokens(user._id);
+          const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id);
 
           user.refreshToken = refreshToken;
           await user.save({ validateBeforeSave: false });
@@ -241,22 +195,11 @@ class AuthController {
             .status(200)
             .cookie("accessToken", accessToken, cookieOptions)
             .cookie("refreshToken", refreshToken, cookieOptions)
-            .json(
-              new ApiResponse(
-                200,
-                { accessToken, refreshToken },
-                "Access token refreshed"
-              )
-            );
+            .json(new ApiResponse(200, { accessToken, refreshToken }, "Access token refreshed"));
         } else {
           return res
             .status(200)
-            .json(
-              new ApiResponse(200, {
-                message: "Access token is still valid",
-                user: req.user,
-              })
-            );
+            .json(new ApiResponse(200, { message: "Access token is still valid", user: req.user }));
         }
       } catch (error) {
         throw new ApiError(401, error?.message || "Invalid refresh token");
@@ -280,9 +223,7 @@ class AuthController {
     user.password = newPassword;
     await user.save({ validateBeforeSave: false });
 
-    return res
-      .status(200)
-      .json(new ApiResponse(200, {}, "Password changed successfully"));
+    return res.status(200).json(new ApiResponse(200, {}, "Password changed successfully"));
   });
 
   // Controller to get the current user
