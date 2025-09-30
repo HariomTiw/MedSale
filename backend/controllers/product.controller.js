@@ -15,8 +15,8 @@ const handleImageUpload = async (file) => {
 
     const response = await uploadOnCloudinary(localFilePath);
 
-    if (response && response.secure_url) {
-      return { url: response.secure_url };
+   if (response && response.url) {
+      return response;
     } else {
       throw new ApiError(500, "Error uploading file to Cloudinary");
     }
@@ -106,9 +106,7 @@ class productController {
           await deleteFromCloudinary(publicId);
         }
 
-        const uploaded = await handleImageUpload(req.file);
-        productImg = uploaded.url;
-
+        productImg = (await handleImageUpload(req.file)).url;
       }
 
       const updatedProduct = await Product.findByIdAndUpdate(
