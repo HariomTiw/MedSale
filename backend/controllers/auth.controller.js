@@ -45,8 +45,8 @@ const handleImageUpload = async (file) => {
 
     const response = await uploadOnCloudinary(localFilePath);
 
-    if (response && (response.secure_url || response.url)) {
-      return { url: response.secure_url || response.url };
+    if (response && response.secure_url) {
+      return { url: response.secure_url };
     } else {
       throw new ApiError(500, "Error uploading file to Cloudinary");
     }
@@ -88,7 +88,7 @@ class AuthController {
 
       const user = await User.create({
         fullName: fullName,
-        avatar: avatar.secure_url || avatar.url,
+        avatar: avatar.url ,
         email: email,
         password: password,
       });
